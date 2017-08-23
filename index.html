@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        button{
+            font-size: 22px;
+            display: block;
+            width: 150px;
+            padding: 30px 0;
+            margin-bottom: 10px;
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+
+<button id="open">Up</button>
+<button id="stop">Stop</button>
+<button id="close">Down</button>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+	const socket = io.connect('http://192.168.1.30:4200')
+	const open = document.querySelector('#open')
+	const close = document.querySelector('#close')
+	const stop = document.querySelector('#stop')
+
+	open.addEventListener('click', doOpen)
+	close.addEventListener('click', doClose)
+	stop.addEventListener('click', doStop)
+
+	socket.on('connect', function(data) {
+		socket.emit('join', 'Hello World from client')
+	})
+
+	function doOpen(){
+		console.log('🔥 Open')
+		socket.emit('open')
+	}
+
+	function doClose(){
+		console.log('🔥 Close')
+		socket.emit('close')
+	}
+
+	function doStop(){
+		console.log('🔥 Stop')
+		socket.emit('stop')
+	}
+
+
+
+</script>
+
+</body>
+</html>
